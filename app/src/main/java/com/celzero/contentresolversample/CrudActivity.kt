@@ -1,11 +1,11 @@
-package com.celzero.contentprovidertest
+package com.celzero.contentresolversample
 
 import android.content.ContentValues
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.celzero.contentprovidertest.databinding.ActivityCrudBinding
+import com.celzero.contentresolversample.databinding.ActivityCrudBinding
 
 class CrudActivity : AppCompatActivity() {
 
@@ -83,7 +83,7 @@ class CrudActivity : AppCompatActivity() {
           put("isSelected", 0)
         }
 
-    Log.d("ContentResolverTest", "getContentValues() contentValues: $values")
+    Log.d("ContentResolverSample", "getContentValues() contentValues: $values")
 
     return values
   }

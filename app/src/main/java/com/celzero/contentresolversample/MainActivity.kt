@@ -1,4 +1,4 @@
-package com.celzero.contentprovidertest
+package com.celzero.contentresolversample
 
 import android.content.ContentResolver
 import android.content.ContentValues
@@ -19,7 +19,7 @@ import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.celzero.contentprovidertest.databinding.ActivityMainBinding
+import com.celzero.contentresolversample.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -67,19 +67,19 @@ class MainActivity : AppCompatActivity() {
   private val cb: ContentObserver =
       object : ContentObserver(Handler()) {
         override fun onChange(selfChange: Boolean) {
-          Log.d("ContentResolverTest", "onChange() 1")
+          Log.d("ContentResolverSample", "onChange() 1")
           adapter.notifyDataSetChanged()
           super.onChange(selfChange)
         }
 
         override fun onChange(selfChange: Boolean, uri: Uri?) {
-          Log.d("ContentResolverTest", "onChange() 2")
+          Log.d("ContentResolverSample", "onChange() 2")
           adapter.notifyDataSetChanged()
           super.onChange(selfChange, uri)
         }
 
         override fun onChange(selfChange: Boolean, uri: Uri?, flags: Int) {
-          Log.d("ContentResolverTest", "onChange() 3 $selfChange, $uri, $flags")
+          Log.d("ContentResolverSample", "onChange() 3 $selfChange, $uri, $flags")
           adapter.notifyItemChanged(0)
           adapter.notifyDataSetChanged()
           lm.restartLoader(1, null, mLoaderCallbacks)
@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onChange(selfChange: Boolean, uris: MutableCollection<Uri>, flags: Int) {
-          Log.d("ContentResolverTest", "onChange() 4")
+          Log.d("ContentResolverSample", "onChange() 4")
           adapter.notifyDataSetChanged()
           super.onChange(selfChange, uris, flags)
         }
@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onLoadFinished(loader: Loader<Cursor?>, data: Cursor?) {
-          Log.d("ContentResolverTest", "onLoadFinished() cursor: $data")
+          Log.d("ContentResolverSample", "onLoadFinished() cursor: $data")
           adapter.setLogs(data)
         }
 
@@ -119,11 +119,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
       if (mCursor == null) {
-        Log.w("ContentResolverTest", "Error: Cursor is null")
+        Log.w("ContentResolverSample", "Error: Cursor is null")
         return
       }
 
-      Log.w("ContentResolverTest", "onBindViewHolder: $position")
+      Log.w("ContentResolverSample", "onBindViewHolder: $position")
 
       if (mCursor!!.moveToPosition(position)) {
         val name = mCursor!!.getString(mCursor!!.getColumnIndexOrThrow("vname"))
@@ -133,7 +133,7 @@ class MainActivity : AppCompatActivity() {
 
       holder.mText.setOnClickListener {
         if (cr == null) {
-          Log.d("ContentResolverTest", "Invalid content resolver for update query")
+          Log.d("ContentResolverSample", "Invalid content resolver for update query")
           return@setOnClickListener
         }
 
@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getContentValues(position: Int): ContentValues? {
-      Log.d("ContentResolverTest", "getContentValues() is cursor available? $mCursor")
+      Log.d("ContentResolverSample", "getContentValues() is cursor available? $mCursor")
       if (mCursor == null) return null
 
       mCursor!!.moveToPosition(position)
@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity() {
             put("isSelected", isSelected)
           }
 
-      Log.d("ContentResolverTest", "getContentValues() contentValues: $values")
+      Log.d("ContentResolverSample", "getContentValues() contentValues: $values")
 
       return values
     }
@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity() {
       if (cursor == null) return
 
       mCursor = cursor
-      Log.d("ContentResolverTest", "setLogs() cursor: $cursor")
+      Log.d("ContentResolverSample", "setLogs() cursor: $cursor")
       notifyItemRangeChanged(0, mCursor!!.count)
       notifyDataSetChanged()
     }
