@@ -80,7 +80,7 @@ class CrudActivity : AppCompatActivity() {
           put("entries", 1)
           put("pack", "Test")
           put("simpleTagId", 1)
-          put("isSelected", 1)
+          put("isSelected", 0)
         }
 
     Log.d("ContentResolverTest", "getContentValues() contentValues: $values")
