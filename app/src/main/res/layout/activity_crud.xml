@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="updates the stamp (uses call() method) for shared pref" />
+        android:text="updates the stamp to some constant '1:4AIAgAABAHAgAA==' stored in local. Uses call() method" />
 
     <Button
         android:id="@+id/button_fifth"

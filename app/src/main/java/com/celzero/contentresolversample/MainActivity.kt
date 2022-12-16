@@ -155,11 +155,12 @@ class MainActivity : AppCompatActivity() {
       // getContentValues gets called from list view, just to update the isSelected value in
       // Rethink's blocklist database. just toggle the isSelected value
       val isSelected =
-          if (mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("simpleTagId")) == 1) {
+          if (mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("isSelected")) == 1) {
             0
           } else {
             1
           }
+      Log.d("ContentResolverSample", "for $id, update the selected as $isSelected")
       val values =
           ContentValues().apply {
             put("value", id)
