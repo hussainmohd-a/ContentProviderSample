@@ -1,53 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_centerVertical="true">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tv_app_desc"
+        style="@style/TextAppearance.AppCompat.Body2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="@string/app_desc" />
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.75"
-            android:gravity="center"
-            android:padding="15dp"
-            android:text="Content Observer"
-            android:textColor="@color/material_on_surface_emphasis_high_type"
-            android:textSize="15sp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/stamp"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_weight="0.25"
-            android:padding="10dp"
-            android:text="OTHERS" />
-
-
-    </LinearLayout>
-
-
-    <androidx.appcompat.widget.AppCompatTextView
+    <TextView
+        android:id="@+id/tv_app_blocklist_title"
+        style="@style/TextAppearance.AppCompat.Headline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:text="list below observes RethinkDNS block lists, displays name and (true/false) based upon selection." />
+        android:layout_below="@id/tv_app_desc"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="@string/blocklists_title" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/blocklists_ll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:scrollbars="vertical" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/tv_app_blocklist_title"
+        android:gravity="center">
 
-</LinearLayout>
+        <Button
+            android:id="@+id/btn_blocklists_observer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="20dp"
+            android:text="@string/observer" />
+
+        <Button
+            android:id="@+id/btn_blocklists_crud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_app_desc"
+            android:layout_marginStart="20dp"
+            android:text="@string/crud" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/tv_app_apps_title"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/blocklists_ll"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="@string/apps_title" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+           android:id="@+id/app_ll"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_below="@id/tv_app_apps_title"
+           android:layout_marginTop="20dp"
+           android:gravity="center">
+
+        <Button
+               android:id="@+id/btn_apps_observer"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_centerHorizontal="true"
+                android:layout_marginEnd="20dp"
+               android:text="@string/observer" />
+
+           <Button
+               android:id="@+id/btn_apps_crud"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="20dp"
+               android:text="@string/crud" />
+
+       </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+</RelativeLayout>
