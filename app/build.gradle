@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.celzero.contentresolversample"
+        applicationId "com.celzero.interop"
         minSdk 23
         targetSdk 33
         versionCode 1

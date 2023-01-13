@@ -1,4 +1,4 @@
-package com.celzero.contentresolversample
+package com.celzero.interop
 
 import org.junit.Test
 

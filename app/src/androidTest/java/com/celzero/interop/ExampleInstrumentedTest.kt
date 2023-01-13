@@ -1,4 +1,4 @@
-package com.celzero.contentresolversample
+package com.celzero.interop
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
