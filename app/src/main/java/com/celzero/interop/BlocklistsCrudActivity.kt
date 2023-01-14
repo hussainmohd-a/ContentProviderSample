@@ -11,8 +11,8 @@ class BlocklistsCrudActivity : AppCompatActivity() {
 
   private lateinit var binding: ActivityCrudBinding
 
-  private val AUTHORITY = "com.celzero.bravedns.contentprovider"
-  private val URI_SAMPLE = Uri.parse("content://${AUTHORITY}/blocklists")
+  private val AUTHORITY = "com.celzero.bravedns.blocklistprovider"
+  private val URI_BLOCKLISTS = Uri.parse("content://${AUTHORITY}/blocklists")
 
   private val URI_DELETE = Uri.parse("content://${AUTHORITY}/blocklists/1340")
   private val GET_STAMP = "content://${AUTHORITY}/blocklists/stamp/get"
@@ -30,7 +30,7 @@ class BlocklistsCrudActivity : AppCompatActivity() {
 
   private fun init() {
     binding.buttonFirst.setOnClickListener {
-      val cursor = contentResolver.query(URI_SAMPLE, null, null, null, null)
+      val cursor = contentResolver.query(URI_BLOCKLISTS, null, null, null, null)
       if (cursor!!.moveToFirst()) {
         val strBuild = StringBuilder()
         while (!cursor.isAfterLast) {
@@ -45,7 +45,7 @@ class BlocklistsCrudActivity : AppCompatActivity() {
     }
 
     binding.buttonSecond.setOnClickListener {
-      val uri = contentResolver.insert(URI_SAMPLE, getContentValues())
+      val uri = contentResolver.insert(URI_BLOCKLISTS, getContentValues())
       binding.textviewSecond.text = uri?.toString() ?: "Empty"
     }
 
@@ -55,14 +55,14 @@ class BlocklistsCrudActivity : AppCompatActivity() {
     }
 
     binding.buttonFourth.setOnClickListener {
-      val bundle = contentResolver.call(URI_SAMPLE, GET_STAMP, null, null)
+      val bundle = contentResolver.call(URI_BLOCKLISTS, GET_STAMP, null, null)
       binding.textviewFourth.text = bundle?.getString("stamp") ?: "Empty"
     }
 
     binding.buttonFifth.setOnClickListener {
       val bundle = Bundle()
       bundle.putString("stamp", sampleStamp)
-      contentResolver.call(URI_SAMPLE, UPDATE_STAMP, sampleStamp, bundle)
+      contentResolver.call(URI_BLOCKLISTS, UPDATE_STAMP, sampleStamp, bundle)
     }
   }
 
