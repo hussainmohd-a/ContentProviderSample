@@ -19,26 +19,26 @@ import androidx.loader.content.CursorLoader
 import androidx.loader.content.Loader
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.celzero.interop.databinding.ActivityAppsBinding
+import com.celzero.interop.databinding.ActivityDomainRulesBinding
 
-class AppsActivity : AppCompatActivity() {
+class DomainRulesActivity : AppCompatActivity() {
 
-  private lateinit var binding: ActivityAppsBinding
+  private lateinit var binding: ActivityDomainRulesBinding
 
   companion object {
-    private const val AUTHORITY = "com.celzero.bravedns.appprovider"
+    private const val AUTHORITY = "com.celzero.bravedns.domainrulesprovider"
 
     /** The URI for the blocklists table. */
-    private val APP_URI = Uri.parse("content://$AUTHORITY/apps")
+    private val DOMAIN_RULES_URI = Uri.parse("content://$AUTHORITY/domainrules")
   }
 
-  private lateinit var adapter: AppsAdapter
+  private lateinit var adapter: DomainRulesAdapter
   private lateinit var lm: LoaderManager
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    binding = ActivityAppsBinding.inflate(layoutInflater)
+    binding = ActivityDomainRulesBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
     init()
@@ -47,14 +47,14 @@ class AppsActivity : AppCompatActivity() {
   private fun init() {
     val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     binding.list.layoutManager = linearLayoutManager
-    adapter = AppsAdapter()
+    adapter = DomainRulesAdapter()
     binding.list.adapter = adapter
 
     adapter.setContentResolver(contentResolver)
 
     lm = LoaderManager.getInstance(this)
     lm.initLoader(1, null, mLoaderCallbacks)
-    contentResolver.registerContentObserver(APP_URI, true, cb)
+    contentResolver.registerContentObserver(DOMAIN_RULES_URI, true, cb)
   }
 
   private val cb: ContentObserver =
@@ -86,7 +86,7 @@ class AppsActivity : AppCompatActivity() {
       object : LoaderManager.LoaderCallbacks<Cursor?> {
         override fun onCreateLoader(id: Int, @Nullable args: Bundle?): Loader<Cursor?> {
           adapter.setContentResolver(contentResolver)
-          return CursorLoader(applicationContext, APP_URI, arrayOf("queryStr"), null, null, null)
+          return CursorLoader(applicationContext, DOMAIN_RULES_URI, null, null, null, null)
         }
 
         override fun onLoadFinished(loader: Loader<Cursor?>, data: Cursor?) {
@@ -99,7 +99,7 @@ class AppsActivity : AppCompatActivity() {
         }
       }
 
-  private class AppsAdapter : RecyclerView.Adapter<AppsAdapter.ViewHolder>() {
+  private class DomainRulesAdapter : RecyclerView.Adapter<DomainRulesAdapter.ViewHolder>() {
     private var mCursor: Cursor? = null
     private var cr: ContentResolver? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -113,11 +113,11 @@ class AppsActivity : AppCompatActivity() {
       }
 
       if (mCursor!!.moveToPosition(position)) {
-        val name = mCursor!!.getString(mCursor!!.getColumnIndexOrThrow("appName"))
-        val firewallStatus = mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("firewallStatus"))
-        Log.w("RethinkInterOp", "app: $name, $firewallStatus")
+        val name = mCursor!!.getString(mCursor!!.getColumnIndexOrThrow("domain"))
+        val status = mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("status"))
+        Log.w("RethinkInterOp", "app: $name, $status")
         holder.textView.text = name
-        holder.toggleButton.isChecked = firewallStatus == 1
+        holder.toggleButton.isChecked = status == 2
       }
 
       holder.toggleButton.setOnClickListener {
@@ -126,7 +126,7 @@ class AppsActivity : AppCompatActivity() {
           return@setOnClickListener
         }
         holder.toggleButton.isChecked = !holder.toggleButton.isChecked
-        cr?.update(APP_URI, getContentValues(position), null, null)
+        cr?.update(DOMAIN_RULES_URI, getContentValues(position), null, null)
       }
 
       holder.textView.setOnClickListener {
@@ -135,7 +135,7 @@ class AppsActivity : AppCompatActivity() {
           return@setOnClickListener
         }
 
-        cr?.update(APP_URI, getContentValues(position), null, null)
+        cr?.update(DOMAIN_RULES_URI, getContentValues(position), null, null)
       }
     }
 
@@ -153,31 +153,24 @@ class AppsActivity : AppCompatActivity() {
       // getContentValues gets called from list view, just to update the isSelected value in
       // Rethink's blocklist database. just toggle the isSelected value
       val status =
-          if (mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("connectionStatus")) == 0) {
+          if (mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("status")) == 0) {
             1
           } else {
-           3
+            2
           }
       Log.d("RethinkInterOp", "Update firewall status to $status? $uid")
       val values =
           ContentValues().apply {
             put("uid", uid)
-            put("packageName", mCursor!!.getString(mCursor!!.getColumnIndexOrThrow("packageName")))
-            put("appName", mCursor!!.getString(mCursor!!.getColumnIndexOrThrow("appName")))
-            put("isSystemApp", mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("isSystemApp")))
-            put("firewallStatus", status)
-            put("appCategory", mCursor!!.getString(mCursor!!.getColumnIndexOrThrow("appCategory")))
-            put("wifiDataUsed", mCursor!!.getLong(mCursor!!.getColumnIndexOrThrow("wifiDataUsed")))
+            put("domain", mCursor!!.getString(mCursor!!.getColumnIndexOrThrow("domain")))
+            put("ips", mCursor!!.getString(mCursor!!.getColumnIndexOrThrow("ips")))
+            put("status", status)
+            put("type", mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("type")))
+            put("modifiedTs", mCursor!!.getLong(mCursor!!.getColumnIndexOrThrow("modifiedTs")))
+            put("deletedTs", mCursor!!.getLong(mCursor!!.getColumnIndexOrThrow("deletedTs")))
             put(
-                "mobileDataUsed",
-                mCursor!!.getLong(mCursor!!.getColumnIndexOrThrow("mobileDataUsed")))
-            put("connectionStatus", mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("metered")))
-            put(
-                "screenOffAllowed",
-                mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("screenOffAllowed")))
-            put(
-                "backgroundAllowed",
-                mCursor!!.getInt(mCursor!!.getColumnIndexOrThrow("backgroundAllowed")))
+                "version",
+                mCursor!!.getLong(mCursor!!.getColumnIndexOrThrow("version")))
           }
 
       Log.d("RethinkInterOp", "getContentValues() contentValues: $values")

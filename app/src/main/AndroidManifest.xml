@@ -4,7 +4,11 @@
     package="com.celzero.interop">
 
     <uses-permission android:name="com.celzero.bravedns.contentprovider.READ_WRITE" />
-
+    <queries>
+        <provider android:authorities="com.celzero.bravedns.blocklistprovider" />
+        <provider android:authorities="com.celzero.bravedns.appprovider" />
+        <provider android:authorities="com.celzero.bravedns.domainrulesprovider" />
+    </queries>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -35,6 +39,12 @@
             android:finishOnTaskLaunch="true" />
         <activity
             android:name="com.celzero.interop.AppsCrudActivity"
+            android:finishOnTaskLaunch="true" />
+        <activity
+            android:name="com.celzero.interop.DomainRulesActivity"
+            android:finishOnTaskLaunch="true" />
+        <activity
+            android:name="com.celzero.interop.DomainRulesCrudActivity"
             android:finishOnTaskLaunch="true" />
     </application>
 

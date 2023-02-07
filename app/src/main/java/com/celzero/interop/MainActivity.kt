@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     binding.btnBlocklistsCrud.setOnClickListener { launchBlocklistCrudActivity() }
     binding.btnAppsObserver.setOnClickListener { launchAppsActivity() }
     binding.btnAppsCrud.setOnClickListener { launchAppsCrudActivity() }
+    binding.btnDomainsObserver.setOnClickListener { launchDomainRulesActivity() }
+    binding.btnDomainsCrud.setOnClickListener { launchDomainRulesCrudActivity() }
   }
 
   private fun launchBlocklistsActivity() {
@@ -41,6 +43,16 @@ class MainActivity : AppCompatActivity() {
 
   private fun launchAppsCrudActivity() {
     val intent = Intent(this, AppsCrudActivity::class.java)
+    startActivity(intent)
+  }
+
+  private fun launchDomainRulesActivity() {
+    val intent = Intent(this, DomainRulesActivity::class.java)
+    startActivity(intent)
+  }
+
+  private fun launchDomainRulesCrudActivity() {
+    val intent = Intent(this, DomainRulesCrudActivity::class.java)
     startActivity(intent)
   }
 }

@@ -15,4 +15,5 @@
     <string name="observer">observer</string>
     <string name="crud">CRUD</string>
     <string name="apps_title">Apps</string>
+    <string name="domains_title">Domain Rules</string>
 </resources>

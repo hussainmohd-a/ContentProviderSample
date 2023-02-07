@@ -29,8 +29,8 @@
         android:id="@+id/blocklists_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_below="@id/tv_app_blocklist_title"
+        android:layout_marginTop="20dp"
         android:gravity="center">
 
         <Button
@@ -62,30 +62,64 @@
         android:text="@string/apps_title" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-           android:id="@+id/app_ll"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_below="@id/tv_app_apps_title"
-           android:layout_marginTop="20dp"
-           android:gravity="center">
+        android:id="@+id/app_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_app_apps_title"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
 
         <Button
-               android:id="@+id/btn_apps_observer"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerHorizontal="true"
-                android:layout_marginEnd="20dp"
-               android:text="@string/observer" />
+            android:id="@+id/btn_apps_observer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="20dp"
+            android:text="@string/observer" />
 
-           <Button
-               android:id="@+id/btn_apps_crud"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginStart="20dp"
-               android:text="@string/crud" />
+        <Button
+            android:id="@+id/btn_apps_crud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/crud" />
 
-       </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
+    <TextView
+        android:id="@+id/tv_domains_title"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/app_ll"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="@string/domains_title" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/domains_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_domains_title"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_domains_observer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginEnd="20dp"
+            android:text="@string/observer" />
+
+        <Button
+            android:id="@+id/btn_domains_crud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/crud" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 
 </RelativeLayout>

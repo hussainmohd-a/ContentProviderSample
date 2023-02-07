@@ -55,7 +55,7 @@ class AppsCrudActivity : AppCompatActivity() {
           put("appCategory", "Invalid")
           put("wifiDataUsed", 0L)
           put("mobileDataUsed", 0L)
-          put("metered", 0)
+          put("connectionStatus", 0)
           put("screenOffAllowed", 0)
           put("backgroundAllowed", 0)
         }
